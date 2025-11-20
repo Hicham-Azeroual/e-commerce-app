@@ -2,47 +2,42 @@ version: '3.9'
 
 services:
   postgres:
-    container_name: ms_pg_sql
-    image: postgres:16-alpine
+    container_name: ms_postgres
+    image: postgres:15
     environment:
       POSTGRES_USER: hicham
       POSTGRES_PASSWORD: azeroual
-      POSTGRES_DB: microservices_db  # recommended to define default DB
-      PGDATA: /var/lib/postgresql/data/pgdata
+      PGDATA: /data/postgres
     volumes:
-      - postgres_data:/var/lib/postgresql/data/pgdata
+      - postgres_data:/data/postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"
     networks:
       - microservices-net
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U hicham"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   pgadmin:
     container_name: ms_pgadmin
-    image: dpage/pgadmin4:latest
+    image: elestio/pgadmin
+
     environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
       PGADMIN_CONFIG_SERVER_MODE: 'False'
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     ports:
       - "5050:80"
+    depends_on:
+      - postgres
     networks:
       - microservices-net
-    depends_on:
-      postgres:
-        condition: service_healthy
     restart: unless-stopped
 
   mongodb:
     container_name: ms_mongo_db
     image: mongo:7
+    platform: linux/amd64
     ports:
       - "27017:27017"
     environment:
@@ -53,20 +48,21 @@ services:
     networks:
       - microservices-net
     restart: unless-stopped
-    command: --wiredTigerCacheSizeGB=1  # optional: limits RAM usage
+    command: --wiredTigerCacheSizeGB=1
 
   mongo-express:
     container_name: ms_mongo_express
     image: mongo-express:latest
+    platform: linux/amd64
     restart: unless-stopped
     ports:
       - "8081:8081"
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: hicham
       ME_CONFIG_MONGODB_ADMINPASSWORD: azeroual
-      ME_CONFIG_MONGODB_SERVER: mongodb          # important: service name
+      ME_CONFIG_MONGODB_SERVER: mongodb
       ME_CONFIG_MONGODB_PORT: 27017
-      ME_CONFIG_BASICAUTH: "false"                # disable if you don't want login
+      ME_CONFIG_BASICAUTH: "false"
     networks:
       - microservices-net
     depends_on:
@@ -75,9 +71,10 @@ services:
   mail-dev:
     container_name: ms_mail_dev
     image: maildev/maildev:latest
+    platform: linux/amd64
     ports:
-      - "1080:1080"   # Web UI
-      - "1025:1025"   # SMTP port
+      - "1080:1080"
+      - "1025:1025"
     networks:
       - microservices-net
     restart: unless-stopped
