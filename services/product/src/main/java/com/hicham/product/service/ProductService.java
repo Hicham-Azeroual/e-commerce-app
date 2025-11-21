@@ -76,4 +76,17 @@ public class ProductService {
         return purchasedProducts;
     }
 
+    public Integer updateProduct(ProductRequest request, Integer id) {
+        var product = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Product not found with ID:: " + id));
+        mapper.updateProductFromRequest(request, product);
+        return repository.save(product).getId();
+    }
+
+    public void deleteProduct(Integer id) {
+        repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Product not found with ID:: " + id));
+        repository.deleteById(id);
+    }
+
 }

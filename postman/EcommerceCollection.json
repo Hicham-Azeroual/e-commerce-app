@@ -1,0 +1,343 @@
+{
+   "info": {
+     "name": "ecomerce",
+     "_postman_id": "b1a6d9e2-0000-4000-8000-000000000001",
+     "description": "Collection pour tester les endpoints customer et product",
+     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+   },
+   "item": [
+     {
+       "name": "customer",
+       "item": [
+         {
+           "name": "Create Customer",
+           "request": {
+             "method": "POST",
+             "header": [
+               {
+                 "key": "Content-Type",
+                 "value": "application/json"
+               }
+             ],
+             "body": {
+               "mode": "raw",
+               "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"john.doe@example.com\"\n}"
+             },
+             "url": {
+               "raw": "{{baseUrl}}/api/v1/customers",
+               "host": [
+                 "{{baseUrl}}"
+               ],
+               "path": [
+                 "api",
+                 "v1",
+                 "customers"
+               ]
+             }
+           }
+         },
+         {
+           "name": "Update Customer",
+           "request": {
+             "method": "PUT",
+             "header": [
+               {
+                 "key": "Content-Type",
+                 "value": "application/json"
+               }
+             ],
+             "body": {
+               "mode": "raw",
+               "raw": "{\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Doe\",\n  \"email\": \"jane.doe@example.com\"\n}"
+             },
+             "url": {
+               "raw": "{{baseUrl}}/api/v1/customers/{{id}}",
+               "host": [
+                 "{{baseUrl}}"
+               ],
+               "path": [
+                 "api",
+                 "v1",
+                 "customers",
+                 "{{id}}"
+               ],
+               "variable": [
+                 {
+                   "key": "id",
+                   "value": "REPLACE_WITH_CUSTOMER_ID"
+                 }
+               ]
+             }
+           }
+         },
+         {
+           "name": "Find All Customers",
+           "request": {
+             "method": "GET",
+             "url": {
+               "raw": "{{baseUrl}}/api/v1/customers",
+               "host": [
+                 "{{baseUrl}}"
+               ],
+               "path": [
+                 "api",
+                 "v1",
+                 "customers"
+               ]
+             }
+           }
+         },
+         {
+           "name": "Exists By Id",
+           "request": {
+             "method": "GET",
+             "url": {
+               "raw": "{{baseUrl}}/api/v1/customers/exists/{{id}}",
+               "host": [
+                 "{{baseUrl}}"
+               ],
+               "path": [
+                 "api",
+                 "v1",
+                 "customers",
+                 "exists",
+                 "{{id}}"
+               ],
+               "variable": [
+                 {
+                   "key": "id",
+                   "value": "REPLACE_WITH_CUSTOMER_ID"
+                 }
+               ]
+             }
+           }
+         },
+         {
+           "name": "Find Customer By Id",
+           "request": {
+             "method": "GET",
+             "url": {
+               "raw": "{{baseUrl}}/api/v1/customers/{{id}}",
+               "host": [
+                 "{{baseUrl}}"
+               ],
+               "path": [
+                 "api",
+                 "v1",
+                 "customers",
+                 "{{id}}"
+               ],
+               "variable": [
+                 {
+                   "key": "id",
+                   "value": "REPLACE_WITH_CUSTOMER_ID"
+                 }
+               ]
+             }
+           }
+         },
+         {
+           "name": "Delete Customer",
+           "request": {
+             "method": "DELETE",
+             "url": {
+               "raw": "{{baseUrl}}/api/v1/customers/{{id}}",
+               "host": [
+                 "{{baseUrl}}"
+               ],
+               "path": [
+                 "api",
+                 "v1",
+                 "customers",
+                 "{{id}}"
+               ],
+               "variable": [
+                 {
+                   "key": "id",
+                   "value": "REPLACE_WITH_CUSTOMER_ID"
+                 }
+               ]
+             }
+           }
+         }
+       ]
+     },
+     {
+      "name": "product",
+      "item": [
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Mechanical Keyboard Pro\",\n  \"description\": \"Mechanical keyboard with RGB lighting and wrist rest\",\n  \"price\": 129.99,\n  \"availableQuantity\": 25,\n  \"categoryId\": {{categoryId}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Mechanical Keyboard Pro (Updated)\",\n  \"description\": \"Mechanical keyboard with RGB lighting, wrist rest and macro keys\",\n  \"price\": 139.99,\n  \"availableQuantity\": 20,\n  \"categoryId\": {{categoryId}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/products/{{productId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "{{productId}}"
+              ],
+              "variable": [
+                {
+                  "key": "productId",
+                  "value": "REPLACE_WITH_PRODUCT_ID"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Find All Products",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Find Product By Id",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/products/{{productId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "{{productId}}"
+              ],
+              "variable": [
+                {
+                  "key": "productId",
+                  "value": "REPLACE_WITH_PRODUCT_ID"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/products/{{productId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "{{productId}}"
+              ],
+              "variable": [
+                {
+                  "key": "productId",
+                  "value": "REPLACE_WITH_PRODUCT_ID"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Purchase Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"productId\": {{productId}},\n    \"quantity\": 2\n  }\n]"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/products/purchase",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "purchase"
+              ]
+            }
+          }
+        }
+      ]
+    }
+   ],
+   "variable": [
+     {
+       "key": "baseUrl",
+       "value": "http://localhost:8050"
+     },
+     {
+       "key": "id",
+       "value": "REPLACE_WITH_CUSTOMER_ID"
+     },
+     {
+       "key": "productId",
+       "value": "REPLACE_WITH_PRODUCT_ID"
+     },
+     {
+       "key": "categoryId",
+       "value": "REPLACE_WITH_CATEGORY_ID"
+     }
+   ]
+ }

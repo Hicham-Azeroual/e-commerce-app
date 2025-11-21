@@ -45,4 +45,20 @@ public class ProductController {
     public ResponseEntity<List<ProductResponse>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
+
+    @PutMapping("/{product-id}")
+    public ResponseEntity<Integer> updateProduct(
+            @RequestBody @Valid ProductRequest request,
+            @PathVariable("product-id") Integer productId
+    ) {
+        return ResponseEntity.ok(service.updateProduct(request, productId));
+    }
+
+    @DeleteMapping("/{product-id}")
+    public ResponseEntity<Void> deleteProduct(
+            @PathVariable("product-id") Integer productId
+    ) {
+        service.deleteProduct(productId);
+        return ResponseEntity.noContent().build();
+    }
 }
